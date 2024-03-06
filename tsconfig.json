@@ -1,0 +1,31 @@
+{
+  "compileroptions": {
+    "target": "esnext",
+    "useDefineForClassFields": true,
+    "module": "esnext",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "skipLibCheck": true,
+    "paths": {
+      "react": ["./node_modules/preact/compat/"],
+      "react-dom": ["./node_modules/preact/compat/"],
+			"react/jsx-runtime":["./node_modules/preact/jsx-runtime/"]
+    },
+		"allowSyntheticDefaultImports":true,
+		"esModuleInterop":true,
+
+    /* Bundler mode */
+    "moduleResolution": "Bundler",
+    "allowImportingTsExtensions": true,
+
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react",
+    "jsxImportSource": "preact",
+
+    /* Linting */
+    "strict": true,
+  },
+  "include": ["client"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
