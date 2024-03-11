@@ -1,3 +1,4 @@
+import { uneval } from 'devalue';
 import preact,{ h, options, cloneElement } from 'preact';
 import renderToString from 'preact-render-to-string';
 
@@ -9,13 +10,12 @@ options.vnode = vnode => {
 	if (vnodeHook) vnodeHook(vnode);
 };
 
-/**
- * @param {ReturnType<h>} vnode The root JSX element to render (eg: `<App />`)
- * @param {object} [options]
- * @param {number} [options.maxDepth = 10] The maximum number of nested asynchronous operations to wait for before flushing
- * @param {object} [options.props] Additional props to merge into the root JSX element
- */
-export default async function dehydrator(vnode, options) {
+type Res = {
+	html:string
+	links:string[]
+}
+
+export default async function dehydrator(vnode, options):Promise<Res>|Res {
 	options = options || {};
 
 	const maxDepth = options.maxDepth || 10;
@@ -47,7 +47,7 @@ export default async function dehydrator(vnode, options) {
 
 	try {
 		let html = await render();
-		html += `<script type="isodata">${JSON.stringify(props)}</script>`;
+		html += `<script type="isodata">window.hydration = ${uneval({serverSideProps:props})}</script>`;
 		return { html, links };
 	} finally {
 		vnodeHook = null;

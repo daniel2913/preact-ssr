@@ -6,8 +6,9 @@
 		<meta name="color-scheme" content="light dark" />
 		<title>Vite + Preact</title>
 	</head>
-	<body>
-		<div id="app"><!-- element --></div>
-		<script prerender type="module" src="client.tsx"></script>
+	<!-- hydration -->
+	<body id="app">
+		<!-- element -->
+		<script preload type="module" src="/src/clientEntry.tsx"></script>
 	</body>
 </html>

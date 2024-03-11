@@ -1,8 +1,9 @@
 {
-  "compileroptions": {
-    "target": "esnext",
+  "compilerOptions": {
+    "target": "ESnext",
     "useDefineForClassFields": true,
-    "module": "esnext",
+    "module": "ESNext",
+		"types":["vite/client"],
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
     "paths": {
@@ -13,19 +14,17 @@
 		"allowSyntheticDefaultImports":true,
 		"esModuleInterop":true,
 
-    /* Bundler mode */
-    "moduleResolution": "Bundler",
+    "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
 
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "jsxImportSource": "preact",
 
-    /* Linting */
-    "strict": true,
+    "strict": true
   },
-  "include": ["client"],
+  "include": ["client","exp","src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
