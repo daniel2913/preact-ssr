@@ -2,7 +2,7 @@ import { ErrorBoundary} from "preact-iso";
 import { Route, Router, LocationProvider } from "preact-iso"
 import routes from "./routes"
 import { useSignal } from "@preact/signals";
-
+import renderToString from "preact-render-to-string";
 
 
 type Props = {
@@ -11,6 +11,7 @@ type Props = {
 		req?: Request
 	}
 	url?:string
+	ssp:any
 }
 
 export default function Base(props?: Props) {
@@ -30,20 +31,6 @@ export default function Base(props?: Props) {
 			hash: ""
 		} as Location
 	}
-
-	// async function onNavStart(path: string) {
-	// 	if (typeof window === "undefined" || propsStore[path]) return
-	// 	setLoading(true)
-	// 	const res = await fetch(`/json${path.split(".").shift()}`, { method: "GET" })
-	// 	if (!res.ok) {
-	// 		setLoading(false)
-	// 		return
-	// 	}
-	// 	const props = await res.json()
-	// 	setPropsStore(old => ({ ...old, [path]: props }))
-	// 	setLoading(false)
-	// 	return true
-	// }
 	return (
 		<LocationProvider>
 			{state}
@@ -51,7 +38,8 @@ export default function Base(props?: Props) {
 			<ErrorBoundary>
 				<Router> 
 					{routes.map(route =>
-						<Route path={route.path} component={()=>route.component} />
+						<Route path={route.path} component={route.component(props.ssp[route.path] || [])
+					}/>
 					)}
 				</Router>
 			</ErrorBoundary>
